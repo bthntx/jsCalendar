@@ -1,0 +1,229 @@
+html {
+    height: 100%;
+    background-color: #EEE;
+}
+
+body {
+    box-sizing: border-box;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 2em;
+    max-width: 800px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.2em;
+    background-color: white;
+    border: double 3px #DDD;
+    border-top: none;
+    border-bottom: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+strong {
+    color: #5a6268;
+}
+
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 3em 0;
+    padding: 0;
+    min-width: 400px;
+}
+
+.day:hover {
+    z-index: 1;
+    transform: scale(1.1);
+}
+
+.zoom {
+    transition: transform 0.5s!important;
+    transform: scale(5);
+}
+.zoom:hover {
+    transform: scale(5);
+}
+
+
+
+.table-cell {
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.8em 1.2em;
+    overflow: hidden;
+    list-style: none;
+    border: solid 1px white;
+    background: #aaaaaa;
+    transition: transform 0.1s;
+}
+
+.table > .table-cell {
+    width: 14.28%;
+
+}
+
+div#calendarHeader.table {
+margin:0;
+}
+
+.empty {
+    background: #fff;
+}
+
+.calendar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+div#left, div#right {
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+}
+
+.cal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8em;
+}
+
+.month-list {
+    display: none;
+    position: absolute;
+    padding-left: 0;
+    margin-bottom: 0;
+    max-width: 200px;
+    margin-top: 0;
+    z-index: 2;
+}
+
+#month-menu:hover .month-list{display: block}
+
+.month-list > .select-month {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid
+}
+.month-list > .select-month:hover
+{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.week-header {
+    background: #ffffff;
+    padding: 0.2em 0.3em;
+}
+
+.event {
+    transform: scale(1.1);
+    animation: glowing 3s infinite;
+}
+
+.today {
+    background: #ff9764 !important;
+}
+
+.dialog {
+    background: white;
+    padding:2em;
+
+}
+
+.blur{
+    filter: blur(5px);
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 0px #c4a300;
+    }
+    40% {
+        box-shadow: 0 0 20px #c4a300;
+    }
+    60% {
+        box-shadow: 0 0 20px #c4a300;
+    }
+    100% {
+        box-shadow: 0 0 0px #c4a300;
+    }
+}
+
+@keyframes zoomin {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+button {
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    color: #fff;
+    background-color: #495057;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    overflow: visible;
+}
+
+button:hover {
+    background-color: #2d3857;
+}
+
+input {
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    overflow: visible;
+    font-size: large;
+
+}
+input#year {
+    width: 60px;
+}
+
+div#month,div#left, div#right,.month-list {
+    cursor:pointer;
+}

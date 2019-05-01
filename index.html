@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js Calendar</title>
+    <link rel="stylesheet" href="css/myCalendar.css">
+</head>
+<body>
+<div style="display: none">
+    <div id="dayNode" class="table-cell">
+    </div>
+    <div id="monthSelectNode" class="select-month" data-month="0"></div>
+</div>
+
+<div id="modal" class="modal" style="display: none">
+    <div class="dialog">
+        <p>Event:</p>
+        <form onsubmit="saveEventHandler()">
+            <input type="text" id="inputBox">
+            <button class="button" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+
+<div id="mainContainer">
+    <div id="header" class="cal-header">
+        <div id="month-menu">
+            <div id="month"></div>
+            <div class="month-list">
+            </div>
+        </div>
+        <div id="yearDiv">
+            <input type="number" id="year" size="4" onchange="changeYearHandler(this.value)">
+        </div>
+    </div>
+
+    <div class="calendar-wrapper">
+        <div id="left">&lt;</div>
+        <div>
+            <div id="calendarHeader" class="table">
+            </div>
+            <div id="calendarBody" class="table">
+            </div>
+        </div>
+        <div id="right">&gt;</div>
+    </div>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/myCalendar.js"></script>
+<script>
+
+    showModalHandler = (ev) => {
+        $(ev.target).addClass("zoom");
+        $(ev.target).fadeOut().fadeIn();
+        $('#mainContainer').addClass("blur");
+        $('.button').attr("data-date", $(ev.target).data("date"));
+        $('#inputBox').val(calendar.getEvent($(ev.target).data("date")));
+        setTimeout(() => {
+            $('#modal').toggle();
+            $('#inputBox').focus();
+            $(ev.target).removeClass("zoom");
+        }, 400);
+    };;
+
+    saveEventHandler = () => {
+        const input = $('#inputBox');
+        calendar.addCalEvent($('.button').attr("data-date"), input.val());
+        calendar.renderCalendar();
+        input.val("");
+        $('#modal').fadeOut();
+        $('#mainContainer').removeClass("blur");
+        return false;
+    };
+
+    changeYearHandler = (year) => {
+        const calWrapper =$('.calendar-wrapper');
+        calWrapper.fadeOut("fast", () => {
+            calendar.setYear(year);
+            calWrapper.slideDown()
+        });
+    };
+
+    changeMonthHandler = (month) => {
+        const monthList = $('.month-list')
+        monthList.fadeOut("fast",()=>monthList.toggle());
+        $('.calendar-wrapper').fadeOut("fast", () => {
+            calendar.setMonth(month);
+            $('.calendar-wrapper').slideDown()
+        });
+    };
+
+    const calendar = new myCalendar(showModalHandler);
+    $('#left').click(() => $('.calendar-wrapper').fadeOut("fast", () => {
+        calendar.prevMonth();
+        $('.calendar-wrapper').slideDown()
+    }));
+    $('#right').click(() => $('.calendar-wrapper').fadeOut("fast", () => {
+        calendar.nextMonth();
+        $('.calendar-wrapper').slideDown()
+    }));
+    $('#modal').click(() => {
+        $('#modal').fadeOut();
+        $('#mainContainer').removeClass("blur");
+    });
+    $('.dialog').click((ev) => ev.stopPropagation());
+    $('.button').click(saveEventHandler);
+    $('.select-month').click((ev) => changeMonthHandler($(ev.target).data("month")));
+    $('#month').click(() => $('.month-list').slideDown("fast"));
+
+
+
+</script>
+</body>
+</html>
